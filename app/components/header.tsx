@@ -1,12 +1,18 @@
-// components/Header.tsx  
+ 'use client'
+
 import React from 'react';  
-import { CSSProperties } from 'react';  
+import { CSSProperties } from 'react';
+import { useRouter } from 'next/navigation';
   
-const Header: React.FC = () => {  
+const Header: React.FC = () => {
+  const router = useRouter();
+  const handleSignin = () => {
+    router.push('/lib/signin');
+  }
   return (  
     <header style={headerStyle}>  
       <div style={titleStyle}>Task Manager</div>  
-      <button style={buttonStyle}>Log In</button>  
+      <button style={buttonStyle} onClick={handleSignin}>Sign In</button>  
     </header>  
   );  
 };  
