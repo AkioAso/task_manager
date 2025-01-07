@@ -9,10 +9,16 @@ const Header: React.FC = () => {
   const handleSignin = () => {
     router.push('/lib/signin');
   }
+  const handleSignup = () => {
+    router.push('/lib/signup');
+  }
   return (  
     <header style={headerStyle}>  
-      <div style={titleStyle}>Task Manager</div>  
-      <button style={buttonStyle} onClick={handleSignin}>Sign In</button>  
+      <div style={titleStyle}>Task Manager</div>
+      <div style={{display: 'flex'}}>
+        <button style={buttonStyle} onClick={handleSignup}>Sign Up</button>
+        <button style={buttonStyle} onClick={handleSignin}>Sign In</button>  
+      </div>
     </header>  
   );  
 };  
@@ -38,7 +44,8 @@ const titleStyle: CSSProperties = {
 };  
   
 const buttonStyle: CSSProperties = {  
-  padding: '10px 20px',  
+  padding: '8px 16px',
+  margin: '0px 0px 0px 10px',
   backgroundColor: 'white',  
   color: 'blue',  
   border: 'none',  
