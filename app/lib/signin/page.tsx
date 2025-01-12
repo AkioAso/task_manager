@@ -1,42 +1,50 @@
 'use client'
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation'; 
   
-export default function Signin() {  
-  const [name, setName] = useState('');  
-  const [age, setAge] = useState('');  
+export default function SignIn() {  
+  const [email, setEmail] = useState('');  
+  const [password, setPassword] = useState('');  
+  const router = useRouter();
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {  
     e.preventDefault();  
   
-    const res = await fetch('/api/addUser', {  
+    const res = await fetch('/api/signIn', {  
       method: 'POST',  
       headers: {  
         'Content-Type': 'application/json'  
       },  
-      body: JSON.stringify({ name, age })  
-    });  
+      body: JSON.stringify({ email, password })  
+    }); 
   
     if (res.ok) {  
       const data = await res.json();  
-      console.log('Document added with ID:', data.id);  
+      console.log('SignIn with uid:', data.uid);
+
+      // localStorage.setItem('uid', data.uid);
+      // localStorage.setItem('idToken', data.idToken);
+      // localStorage.setItem('refreshToken', data.refreshToken);
+      router.push('/lib/taskPage');
+
     } else {  
       console.log(res);
-      console.error('Failed to add document');  
+      console.error('Failed to signIn');  
     }  
   };  
   
   return (  
     <div>
-      <h1>Add User</h1>
+      <h1>Sign in</h1>
       <form onSubmit={handleSubmit}>
         <div className='text-blue-500'>
-          <label>Name:</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          <label>Email:</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className='text-blue-500'>
-          <label>Age:</label>
-          <input type="number" value={age} onChange={(e) => setAge(e.target.value)} />
+          <label>Password:</label>
+          <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <button type="submit">Submit</button>
       </form>

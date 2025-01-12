@@ -1,29 +1,31 @@
 'use client'
 
 import { CSSProperties, useState } from 'react';
+import { useRouter } from 'next/navigation';
   
 const Signup: React.FC = () => {
   const [name, setName] = useState('');
   const [birthday, setBirthday] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {  
     e.preventDefault();  
   
-    const res = await fetch('/api/createAuth', {  
+    const res = await fetch('/api/createUser', {  
       method: 'POST',  
       headers: {  
         'Content-Type': 'application/json'  
       },  
-      body: JSON.stringify({ email, password })  
+      body: JSON.stringify({ email, password, name, birthday })  
     });  
   
     if (res.ok) {  
       const data = await res.json();  
       console.log('Document added with ID:', data.id);  
+      router.push('/lib/signIn');
     } else {  
-      console.log(res);
       console.error('Failed to add document');  
     }  
   };  

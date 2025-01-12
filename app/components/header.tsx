@@ -7,10 +7,10 @@ import { useRouter } from 'next/navigation';
 const Header: React.FC = () => {
   const router = useRouter();
   const handleSignin = () => {
-    router.push('/lib/signin');
+    router.push('/lib/signIn');
   }
   const handleSignup = () => {
-    router.push('/lib/signup');
+    router.push('/lib/signUp');
   }
   return (  
     <header style={headerStyle}>  
