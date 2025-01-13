@@ -30,7 +30,7 @@ export default function RootLayout({
       >
         <Header />
         <div style={{ display: 'flex', height: 'calc(100vh - 50px)', marginTop: '50px' }}>  
-          <main style={{ flex: 1, overflowY: 'auto' }}>  
+          <main>  
             {children}  
           </main>  
         </div> 

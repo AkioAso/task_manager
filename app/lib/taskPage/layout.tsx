@@ -6,9 +6,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div style={{ display: 'flex'}}>  
+    <div style={{ display: 'flex', height: 'calc(100vh - 50px)' }}>  
       <Sidebar />  
-      <div style={{ flex: 1, padding: '20px', overflowY: 'auto',  marginLeft: '200px'}}>  
+      <div style={{ marginLeft: '200px', width: 'calc(100vw - 200px)', height: 'calc(100vh - 50px)', position: 'fixed' }}>  
         {children}  
       </div>  
     </div> 

@@ -32,7 +32,7 @@ const Signup: React.FC = () => {
   
   return (  
     <div style={createUserContainer}>
-      <form onSubmit={handleSubmit} className='text-white'>
+      <form onSubmit={handleSubmit}>
         <h1 className='create-user-title'>Create User</h1>
         <div style={inputStyle}>
           <label>name:</label>

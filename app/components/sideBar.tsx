@@ -42,11 +42,11 @@ const Sidebar: React.FC = () => {
   );  
 };  
   
-const sidebarStyle: CSSProperties = {  
+const sidebarStyle: CSSProperties = {
   width: '200px',  
-  background: '#f0f0f0',  
-  padding: '20px',  
-  height: 'calc(100vh - 50px)', // ヘッダーの高さを考慮  
+  background: '#ddd',  
+  padding: '20px', 
+  height: 'calc(100vh - 50px)',
   position: 'fixed',  
   top: '50px', // ヘッダーの高さ分だけ下にずらす  
   left: 0,  
