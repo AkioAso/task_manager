@@ -5,9 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {  
   try {  
     const { email, password } = await req.json();  
-
-    console.log('email:', email);
-    console.log('password:', password);
   
     // Check if the required fields are present  
     if (!email || !password) {  
@@ -16,7 +13,6 @@ export async function POST(req: NextRequest) {
   
     // Create user with Firebase Auth  
     const userCredential = await signInWithEmailAndPassword(auth, email, password);  
-    console.log(userCredential);
     const user = userCredential.user;
     const idToken = await user.getIdToken();
   

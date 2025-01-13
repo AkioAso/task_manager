@@ -1,6 +1,8 @@
+import { Goal } from "@/app/domain/Goal";
+
 export interface IGoalRepository {
-  create(): void;
-  read(): void;
+  create(uid: string, goal: Goal): void;
+  fetchOne(uid: string): void;
   update(): void;
   delete(): void;
 }
