@@ -1,8 +1,9 @@
+import Space from "./lib/space/page";
+
 export default function Home() {  
   return (
-    <div>
-      <div>
-      </div>
+    <div >
+      <Space />
     </div>
   );
 }
