@@ -6,10 +6,10 @@ import { Goal } from '@/app/domain/Goal';
   
 export async function POST(req: NextRequest) {
   try {
-    const { id, name, description, deadline, userId, isCompleted, missions} = await req.json();  
+    const { id, name, description, deadline, isCompleted, missions} = await req.json();  
 
     const missionDigest = new MissionDigest(missions[0]);
-    const newGoal = new Goal({id, name, description, deadline, userId, isCompleted, missions: [missionDigest] });
+    const newGoal = new Goal({id, name, description, deadline, isCompleted, missions: [missionDigest] });
     const goalRepository = new GoalRepository(db);
 
     await goalRepository.create('sample', newGoal);

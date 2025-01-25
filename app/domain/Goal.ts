@@ -5,16 +5,14 @@ export class Goal {
   private readonly _name: string;
   private readonly _description: string;
   private readonly _deadline: string;
-  private readonly _userId: string;
   private readonly _isCompleted: boolean;
   private readonly _missions: MissionDigest[];
 
-  constructor(goal:{ id: string, name: string, description: string, deadline: string, userId: string, isCompleted: boolean, missions: Mission[] | MissionDigest[]}) {
+  constructor(goal:{ id: string, name: string, description: string, deadline: string, isCompleted: boolean, missions: Mission[] | MissionDigest[]}) {
     this._id = goal.id;
     this._name = goal.name;
     this._description = goal.description;
     this._deadline = goal.deadline;
-    this._userId = goal.userId;
     this._isCompleted = goal.isCompleted;
     this._missions = goal.missions.map(mission => {
       if (mission instanceof Mission) {
@@ -41,9 +39,6 @@ export class Goal {
   }
   get deadline(): string {
     return this._deadline;
-  }
-  get userId(): string {
-    return this._userId;
   }
   get isCompleted(): boolean {
     return this._isCompleted;

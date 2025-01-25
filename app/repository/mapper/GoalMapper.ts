@@ -8,7 +8,6 @@ export class GoalMapper {
       name: goal.name,
       description: goal.description,
       deadline: goal.deadline,
-      userId: goal.userId,
       isCompleted: goal.isCompleted,
       missions: goal.missions
     });
@@ -19,7 +18,6 @@ export class GoalMapper {
       name: goal.name,
       description: goal.description,
       deadline: goal.deadline,
-      userId: goal.userId,
       isCompleted: goal.isCompleted,
       missions: goal.missionDigests
     }
