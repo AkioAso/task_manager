@@ -9,7 +9,7 @@ export class GoalMapper {
       description: goal.description,
       deadline: goal.deadline,
       isCompleted: goal.isCompleted,
-      missions: goal.missions
+      missionDigests: goal.missionDigests
     });
   }
   static toDomain(goal: GoalCollection): Goal {
@@ -19,7 +19,7 @@ export class GoalMapper {
       description: goal.description,
       deadline: goal.deadline,
       isCompleted: goal.isCompleted,
-      missions: goal.missionDigests
+      missionDigests: goal.missionDigests
     }
     );
   }

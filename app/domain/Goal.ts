@@ -6,15 +6,15 @@ export class Goal {
   private readonly _description: string;
   private readonly _deadline: string;
   private readonly _isCompleted: boolean;
-  private readonly _missions: MissionDigest[];
+  private readonly _missionDigests: MissionDigest[];
 
-  constructor(goal:{ id: string, name: string, description: string, deadline: string, isCompleted: boolean, missions: Mission[] | MissionDigest[]}) {
+  constructor(goal:{ id: string, name: string, description: string, deadline: string, isCompleted: boolean, missionDigests: Mission[] | MissionDigest[]}) {
     this._id = goal.id;
     this._name = goal.name;
     this._description = goal.description;
     this._deadline = goal.deadline;
     this._isCompleted = goal.isCompleted;
-    this._missions = goal.missions.map(mission => {
+    this._missionDigests = goal.missionDigests.map(mission => {
       if (mission instanceof Mission) {
         return new MissionDigest({
           id: mission.id,
@@ -43,7 +43,7 @@ export class Goal {
   get isCompleted(): boolean {
     return this._isCompleted;
   }
-  get missions(): MissionDigest[] {
-    return this._missions;
+  get missionDigests(): MissionDigest[] {
+    return this._missionDigests;
   }
 }

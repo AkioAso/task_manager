@@ -9,13 +9,13 @@ export class GoalCollection {
   private readonly _isCompleted: boolean;
   private readonly _missionDigests: MissionDigest[];
 
-  constructor(data: { id: string, name: string, description: string, deadline: string, isCompleted: boolean, missions: MissionDigest[] }) {
+  constructor(data: { id: string, name: string, description: string, deadline: string, isCompleted: boolean, missionDigests: MissionDigest[] }) {
     this._id = data.id;
     this._name = data.name;
     this._description = data.description;
     this._deadline = data.deadline;
     this._isCompleted = data.isCompleted;
-    this._missionDigests = data.missions.map(mission => {
+    this._missionDigests = data.missionDigests.map(mission => {
       return new MissionDigest({
         id: mission.id,
         name: mission.name,
@@ -54,7 +54,7 @@ export const firebaseConverter: FirestoreDataConverter<GoalCollection> = {
       description: goal.description,
       deadline: goal.deadline,
       isCompleted: goal.isCompleted,
-      missions: goal.missionDigests.map(mission => {
+      missionDigests: goal.missionDigests.map(mission => {
         return {
           id: mission.id,
           name: mission.name,
@@ -75,7 +75,7 @@ export const firebaseConverter: FirestoreDataConverter<GoalCollection> = {
       description: data.description,
       deadline: data.deadline,
       isCompleted: data.isCompleted,
-      missions: data.missionDigests
+      missionDigests: data.missionDigests
     });
   }
 }
