@@ -1,30 +1,21 @@
 export class Task {
   private readonly _name: string;
-  private readonly _description: string;
-  private readonly _deadline: string;
-  private readonly _status: string;
-  private readonly _finishedDay?: string;
+  private readonly _time: string;
+  private readonly _status: boolean;
 
-  constructor(data: { name: string, description: string, deadline: string, status: string, finishedDay?: string }) {
+  constructor(data: { name: string, time: string, status: boolean }) {
     this._name = data.name;
-    this._description = data.description;
-    this._deadline = data.deadline;
+    this._time = data.time;
     this._status = data.status;
-    if (data.finishedDay) {
-      this._finishedDay = data.finishedDay;
-    }
   }
 
   get name(): string {
     return this._name;
   }
-  get description(): string {
-    return this._description;
+  get time(): string {
+    return this._time;
   }
-  get deadline(): string {
-    return this._deadline;
-  }
-  get status(): string {
+  get status(): boolean {
     return this._status;
   }
 }
