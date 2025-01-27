@@ -1,6 +1,8 @@
+import { Task } from "@/app/domain/Task";
+
 export interface ITaskRepository {
-  create(): void;
-  read(): void;
-  update(): void;
+  create(uid: string, date: string, tasks: Task[]): Promise<void>;
+  fetch(uid: string, date: string): Promise<Task[]>;
+  update(uid: string, date: string, tasks: Task[]): Promise<void>;
   delete(): void;
 }
