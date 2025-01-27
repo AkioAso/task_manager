@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     }  
   
     // Create user with Firebase Auth  
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);  
+    const userCredential = await signInWithEmailAndPassword(auth, email, password); 
     const user = userCredential.user;
     const idToken = await user.getIdToken();
   

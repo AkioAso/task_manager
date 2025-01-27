@@ -21,18 +21,16 @@ export default function SignIn() {
   
     if (res.ok) {  
       const data = await res.json();  
-      console.log('SignIn with uid:', data.uid);
 
-      // localStorage.setItem('uid', data.uid);
-      // localStorage.setItem('idToken', data.idToken);
-      // localStorage.setItem('refreshToken', data.refreshToken);
+      localStorage.setItem('uid', data.uid);
+      localStorage.setItem('idToken', data.idToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
       router.push('/lib/taskPage');
 
     } else {  
-      console.log(res);
       console.error('Failed to signIn');  
     }  
-  };  
+  };
   
   return (  
     <div>
