@@ -8,12 +8,7 @@ import React from 'react';
 import { CSSProperties } from 'react';
 
 const links = [
-  { name: 'taskPage', href: '/lib/taskPage' },
-  { name: 'contentsA', href: '/lib/taskPage/contentsA' },
-  {
-    name: 'contentsB',
-    href: '/lib/taskPage/contentsB',
-  },
+  { name: 'taskPage', href: '/lib/taskPage' }
 ];
   
 const Sidebar: React.FC = () => { 
