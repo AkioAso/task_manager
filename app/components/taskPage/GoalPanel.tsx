@@ -2,6 +2,7 @@
 import { Goal } from '@/app/domain/Goal';
 import React, { useEffect, useState } from 'react';  
 import Timeline from './timeLine';
+import { MissionDigest } from '@/app/domain/Mission';
 
 type goalProps = {
   title: string;
@@ -10,15 +11,6 @@ type goalProps = {
   labelColor: string;
   buttonFunc: () => void;
 }
-
-const events = [
-  {
-    id: "1",
-    name: "プロジェクト開始",
-    details: "新規プロジェクトのキックオフミーティング",
-    time: new Date(2023, 1, 15, 10, 0), // 2月15日 10:00
-  }
-];
 
 const GoalPanel = (props: goalProps) => {
   const uid =  localStorage.getItem('uid');
@@ -36,25 +28,35 @@ const GoalPanel = (props: goalProps) => {
         });
         if (res.ok) {
           const resData = await res.json();
-          const goalInstance = new Goal(resData);
+          console.log('resData:', resData);
+          const goalInstance = new Goal({
+            id: resData.id,
+            name: resData.name,
+            description: resData.description,
+            deadline: resData.deadline,
+            isCompleted: resData.isCompleted,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            missionDigests: resData.missionDigests.map((mission: any) => {
+              return new MissionDigest(
+                mission.id,
+                mission.name,
+                mission.deadline,
+                mission.isCompleted,
+              );
+            })
+          });
           setGoal(goalInstance);
         } else {
+          if (res.status === 404) {
+            console.log('Goal not found');
+            return;
+          }
           console.error('Failed to fetch document');
         }
       }
     };
     fetchGoal()
   }, [uid]);
-
-
-  // goalの変化を監視するuseEffect  
-  useEffect(() => {  
-    if (goal !== null) {  
-      console.log('Document fetched:', goal);  
-      console.log('goal.id:', goal.id);
-      console.log('goal.name:', goal.name);
-    }  
-  }, [goal]); // goalが変化するたびにログを出力 
 
   return (  
     <div className={`${props.width} m-2 border-solid border-2 border-black rounded-md overflow-hidden`}>  
@@ -64,7 +66,7 @@ const GoalPanel = (props: goalProps) => {
       </div>  
       <section className="flex" style={{ height: 'calc(100% - 2.5rem)' }}>
         <div className='w-8/12 bg-green-500 flex-grow'>
-          <Timeline events={events} />
+          <Timeline goals={goal} />
         </div> 
         <div className="flex flex-col w-4/12 h-full">
           <div className="flex-1 bg-blue-500">{goal ? goal.id : 'Loading...'}</div>

@@ -43,11 +43,11 @@ export class MissionDigest {
   private readonly _deadline: string;
   private readonly _isCompleted: boolean;
 
-  constructor(data: { id: string, name: string, deadline: string, isCompleted: boolean }) {
-    this._id = data.id;
-    this._name = data.name;
-    this._deadline = data.deadline;
-    this._isCompleted = data.isCompleted;
+  constructor(id: string, name: string, deadline: string, isCompleted: boolean) {
+    this._id = id;
+    this._name = name;
+    this._deadline = deadline;
+    this._isCompleted = isCompleted;
   }
 
   get id(): string {

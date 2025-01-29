@@ -16,12 +16,12 @@ export class Goal {
     this._isCompleted = goal.isCompleted;
     this._missionDigests = goal.missionDigests.map(mission => {
       if (mission instanceof Mission) {
-        return new MissionDigest({
-          id: mission.id,
-          name: mission.name,
-          deadline: mission.deadline,
-          isCompleted: mission.isCompleted
-        });
+        return new MissionDigest(
+          mission.id,
+          mission.name,
+          mission.deadline,
+          mission.isCompleted
+        );
       } else {
         return mission;
       }

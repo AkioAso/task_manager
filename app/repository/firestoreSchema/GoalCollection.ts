@@ -16,12 +16,12 @@ export class GoalCollection {
     this._deadline = data.deadline;
     this._isCompleted = data.isCompleted;
     this._missionDigests = data.missionDigests.map(mission => {
-      return new MissionDigest({
-        id: mission.id,
-        name: mission.name,
-        deadline: mission.deadline,
-        isCompleted: mission.isCompleted
-      });      
+      return new MissionDigest(
+        mission.id,
+        mission.name,
+        mission.deadline,
+        mission.isCompleted
+      );      
     });
   }
 

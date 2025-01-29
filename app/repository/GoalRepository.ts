@@ -1,4 +1,4 @@
-import { doc, Firestore, getDoc, setDoc } from "firebase/firestore";
+import { doc, Firestore, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { IGoalRepository } from "./interface/IGoalRepository";
 import { PATH_NAME } from "./constant/firestore.constants";
 import { Goal } from "../domain/Goal";
@@ -27,8 +27,12 @@ export class GoalRepository implements IGoalRepository {
       return null;
     }
   }
-  update(): void {
-    throw new Error("Method not implemented.");
+  async update(uid: string, goal:Goal):  Promise<void> {
+    const docRef = doc(this._db, this._collectionPath, uid).withConverter(firebaseConverter);
+    const updateData = GoalMapper.toFirestore(goal);
+    const firestoreData = firebaseConverter.toFirestore(updateData);  
+    await updateDoc(docRef, firestoreData);
+    return;
   }
   delete(): void {
     throw new Error("Method not implemented.");

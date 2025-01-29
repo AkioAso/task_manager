@@ -1,73 +1,66 @@
+import { Goal } from "@/app/domain/Goal"
+import Image from "next/image"
 import type React from "react"
 
-interface TimelineEvent {
-  id: string
-  name: string
-  details: string
-  time: Date
-}
-
 interface TimelineProps {
-  events: TimelineEvent[]
+  goals: Goal | null
 }
 
-const Timeline: React.FC<TimelineProps> = ({ events }) => {
+const Timeline: React.FC<TimelineProps> = ({ goals }) => {
   const startDate = new Date(new Date().getFullYear(), 0, 1) // 今年の1月1日
   const endDate = new Date(new Date().getFullYear(), 11, 31) // 今年の12月31日
-
-  const calculatePosition = (time: Date) => {
+ 
+  const calculatePosition = (day: string) => {
+    const time = new Date(day)
     const totalDays = (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24)
     const daysPassed = (time.getTime() - startDate.getTime()) / (1000 * 3600 * 24)
     return (daysPassed / totalDays) * 100
+  }
+
+  const calculateSubtraction = (day: string) => {
+    const time = new Date(day)
+    const totalDays = (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24)
+    const daysPassed = (time.getTime() - startDate.getTime()) / (1000 * 3600 * 24)
+    return (daysPassed / totalDays) * 16
   }
 
   return (
     <div className="relative w-full h-full bg-gray-100">
       {/* 時間軸 */}
       <div className="absolute m-2 bottom-4 left-0 right-0 h-1 bg-gray-400">
-        {Array.from({ length: 12 }).map((_, index) => (
+        {Array.from({ length: 13 }).map((_, index) => (
           <div
             key={index}
             className="absolute h-3 w-0.5 bg-gray-600"
-            style={{ left: `${(index / 11) * 100}%`, bottom: "0" }}
+            style={{ left: `${(index / 12) * 100}%`, bottom: "0" }}
           />
         ))}
       </div>
 
       {/* 月表示 */}
       <div className="absolute bottom-0 left-0 right-0 flex justify-between text-sm text-gray-600">
-        {Array.from({ length: 12 }).map((_, index) => (
-          <div key={index} style={{ left: `${(index / 11) * 100}%` }}>
+        {Array.from({ length: 13 }).map((_, index) => (
+          <div key={index} style={{ left: `${(index / 12) * 100}%` }}>
             {new Date(0, index).toLocaleString("default", { month: "short" })}
           </div>
         ))}
       </div>
+      {goals === null ? <></> :
+        <div>
+          {/* 小目標フラッグ */}
+          {goals.missionDigests.map((mission, index) => (
+            <div key={index} className="absolute bottom-8 w-[60px]" style={{ left: `calc(${calculatePosition(mission.deadline) - 1}% - ${calculateSubtraction(mission.deadline)}px)`}}>
+              <Image src="/flag/blueFlag.png"  alt="flag" width={60} height={60} />
+            </div>
+          ))}
 
-     {/* イベント吹き出し */}
-     {events.map((event) => (
-        <div
-          key={event.id}
-          className="bg-white rounded-lg shadow-md p-3 w-48 transform -translate-x-1/2"
-          style={{
-            left: `${calculatePosition(event.time)}%`,
-            bottom: "40px", // 時間軸の上に配置
-          }}
-        >
-          <div className="font-bold">{event.name}</div>
-          <div className="text-sm text-gray-600">{event.details}</div>
-          <div className="text-xs text-gray-500 mt-1">
-            {event.time.toLocaleString("default", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
+          {/* 目標フラッグ */}
+          <div className="absolute bottom-8 w-[60px]" style={{ left: `calc(${calculatePosition(goals.deadline) - 1}% - ${calculateSubtraction(goals.deadline)}px)`}}>
+            <Image src="/flag/redFlag.png" alt="flag" width={60} height={60} />
           </div>
-          {/* 三角形の矢印 */}
-          <div className="absolute w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-white left-1/2 -translate-x-1/2 -bottom-2"></div>
+
         </div>
-      ))}
+      }
     </div>
   )
 }
