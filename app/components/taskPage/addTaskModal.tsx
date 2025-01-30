@@ -70,6 +70,7 @@ const MissionComponent: React.FC<{
   )
 
 const AddTaskModal = (props: ModalProps) => {
+  const [uid, setUid] = useState<string>('');
 
 
   const router = useRouter();
@@ -82,6 +83,10 @@ const AddTaskModal = (props: ModalProps) => {
   });
 
   useEffect(() => {
+    const localUid = localStorage.getItem('uid');
+    if (localUid) {
+      setUid(localUid);
+    }
     if (props.goal) {
       setFormData({
         name: props.goal.name,
@@ -163,8 +168,6 @@ const AddTaskModal = (props: ModalProps) => {
     }
     router.refresh();
   };
-
-  const uid = localStorage.getItem('uid');
 
   return props.open ? (
     <>

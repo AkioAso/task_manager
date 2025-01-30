@@ -60,7 +60,7 @@ const Timeline: React.FC<TimelineProps> = ({ goals, hoverMission }) => {
       <div className="absolute bottom-0 left-0 right-0 flex justify-between text-sm text-gray-600">
         {Array.from({ length: 13 }).map((_, index) => (
           <div key={index} style={{ left: `${(index / 12) * 100}%` }}>
-            {new Date(0, index).toLocaleString("default", { month: "short" })}
+            {new Date(0, index).toLocaleString("ja-JP", { month: "short" })}
           </div>
         ))}
       </div>

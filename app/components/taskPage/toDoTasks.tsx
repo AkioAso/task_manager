@@ -27,8 +27,7 @@ const ToDoTasks = (props: ToDoTasksProps) => {
   const [selectedDay, setSelectedDay] = useState(new Date());
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTasks, setNewTasks] = useState<Task[]>([]);
-
-  const uid = localStorage.getItem('uid');
+  const [uid, setUid] = useState<string>('');
 
   const fetchTasks = async (selectedDay: Date) => {
     if (uid) {
@@ -56,6 +55,10 @@ const ToDoTasks = (props: ToDoTasksProps) => {
   };
 
   useEffect(() => {
+    const localUid = localStorage.getItem('uid');
+    if (localUid) {
+      setUid(localUid);
+    }
     fetchTasks(selectedDay)
   },[]);
 

@@ -15,7 +15,7 @@ type goalProps = {
 export const dynamic = 'force-dynamic';
 
 const GoalPanel = (props: goalProps) => {
-  const uid =  localStorage.getItem('uid');
+  const [uid, setUid] =  useState<string>('');
   const [goal, setGoal] = useState<Goal | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [missionNumber, setMissionNumber] = useState<number>(0);
@@ -28,6 +28,10 @@ const GoalPanel = (props: goalProps) => {
     setMissionNumber(missionNumber);
   }
   useEffect(() => {
+    const localUid = localStorage.getItem('uid');
+    if (localUid) {
+      setUid(localUid);
+    }
     const fetchGoal = async () => {
       if (uid) {
         const url = `/api/fetchGoal?uid=${encodeURIComponent(uid)}`;

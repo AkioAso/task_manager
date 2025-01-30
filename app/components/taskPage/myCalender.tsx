@@ -5,11 +5,11 @@ import jaLocale from '@fullcalendar/core/locales/ja'
 import { useEffect, useState } from 'react'
 
 export const MyCalendar = () => {
-  const uid = localStorage.getItem('uid');
-  const url = uid ? `/api/fetchAllSubTask?uid=${encodeURIComponent(uid)}` : '';
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    const uid = localStorage.getItem('uid');
+    const url = uid ? `/api/fetchAllSubTask?uid=${encodeURIComponent(uid)}` : '';
     const fetchEvent = async () => {
       if (!uid) return;
       const res = await fetch(url,
