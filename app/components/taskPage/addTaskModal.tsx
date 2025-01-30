@@ -1,9 +1,12 @@
 'use client'
 
+import { Goal } from '@/app/domain/Goal';
 import { MissionDigest } from '@/app/domain/Mission';
-import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
 export type ModalProps = {
+  goal: Goal | null;
   open: boolean;
   onCancel: () => void;
   onOk: () => void;
@@ -69,13 +72,26 @@ const MissionComponent: React.FC<{
 const AddTaskModal = (props: ModalProps) => {
 
 
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     description: '',
     deadline: '',
     isCompleted: false,
     missionDigests: [],
-  });  
+  });
+
+  useEffect(() => {
+    if (props.goal) {
+      setFormData({
+        name: props.goal.name,
+        description: props.goal.description,
+        deadline: props.goal.deadline,
+        isCompleted: props.goal.isCompleted,
+        missionDigests: props.goal.missionDigests,
+      });
+    }
+  },[props.goal])
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {  
     const { name, value, type, checked } = e.target;  
@@ -117,8 +133,7 @@ const AddTaskModal = (props: ModalProps) => {
     })
   }
   
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {  
-    e.preventDefault();
+  const handleSubmit = async () => {  
 
     const sendData = {
       id: uid,
@@ -148,7 +163,8 @@ const AddTaskModal = (props: ModalProps) => {
       console.log('Document added with ID:', data.id);
     } else {  
       console.error('Failed to add document');  
-    }  
+    }
+    router.refresh();
   };
 
   const uid = localStorage.getItem('uid');
