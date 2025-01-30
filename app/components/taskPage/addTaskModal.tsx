@@ -158,10 +158,7 @@ const AddTaskModal = (props: ModalProps) => {
       },  
       body: JSON.stringify(sendData)  
     });
-    if (res.ok) {  
-      const data = await res.json();  
-      console.log('Document added with ID:', data.id);
-    } else {  
+    if (!res.ok) {  
       console.error('Failed to add document');  
     }
     router.refresh();

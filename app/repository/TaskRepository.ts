@@ -55,7 +55,6 @@ export class TaskRepository implements ITaskRepository {
         });
       });
     });
-    console.log('dacList:', dacList);
     return dacList;
   }
   delete(): void {

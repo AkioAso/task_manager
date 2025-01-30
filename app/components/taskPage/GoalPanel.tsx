@@ -26,13 +26,11 @@ const GoalPanel = (props: goalProps) => {
 
   function hoverMission(missionNumber: number): void {
     setMissionNumber(missionNumber);
-    console.log('missionNumber:', missionNumber );
   }
   useEffect(() => {
     const fetchGoal = async () => {
       if (uid) {
         const url = `/api/fetchGoal?uid=${encodeURIComponent(uid)}`;
-        console.log('url:', url);
         const res = await fetch(url,{  
           method: 'GET', 
           headers: {
@@ -41,7 +39,6 @@ const GoalPanel = (props: goalProps) => {
         });
         if (res.ok) {
           const resData = await res.json();
-          console.log('resData:', resData);
           const goalInstance = new Goal({
             id: resData.id,
             name: resData.name,

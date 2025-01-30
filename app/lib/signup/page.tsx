@@ -21,9 +21,7 @@ const Signup: React.FC = () => {
       body: JSON.stringify({ email, password, name, birthday })  
     });  
   
-    if (res.ok) {  
-      const data = await res.json();  
-      console.log('Document added with ID:', data.id);  
+    if (res.ok) {   
       router.push('/lib/signIn');
     } else {  
       console.error('Failed to add document');  

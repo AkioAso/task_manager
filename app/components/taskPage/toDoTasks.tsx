@@ -38,7 +38,6 @@ const ToDoTasks = (props: ToDoTasksProps) => {
         day: "2-digit"     // 2桁の数値にする  
       }).format(selectedDay).replace(/\//g, '-');
       const url = `/api/fetchTask?uid=${encodeURIComponent(uid)}&date=${date}`;
-      console.log('url:', url);
       const res = await fetch(url, {
         method: 'GET',
         headers: {
@@ -123,10 +122,7 @@ const ToDoTasks = (props: ToDoTasksProps) => {
         },  
         body: JSON.stringify(sendData)  
       });  
-      if (res.ok) {  
-        const data = await res.json();  
-        console.log('Document added with ID:', data.id);  
-      } else {  
+      if (!res.ok) {  
         console.error('Failed to add document');  
       }  
     };
